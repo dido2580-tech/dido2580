@@ -154,30 +154,45 @@ st.markdown(
     .pipeline-step .check { color: #22C55E; font-weight: 700; }
 
     /* ── Linkage Lab 고정 로고 ── */
-    .ll-logo {
+    .ll-logo-sidebar {
         display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: #1A1A1A;
-        padding: 7px 16px;
-        border-radius: 8px;
-        white-space: nowrap;
+        align-items: baseline;
+        gap: 7px;
+        padding: 6px 2px;
     }
-    .ll-logo .ll-wordmark {
+    .ll-logo-sidebar .ll-brand {
         font-size: 0.95rem;
         font-weight: 300;
-        color: #FFE500;
-        letter-spacing: 0.4px;
+        color: #3A3A3A;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
     }
-    .ll-logo .ll-wordmark b {
-        font-weight: 700;
-        color: #FFE500;
+    .ll-logo-sidebar .ll-brand b { font-weight: 500; }
+    .ll-logo-sidebar .ll-sub {
+        font-size: 0.62rem;
+        color: #AAAAAA;
+        font-weight: 300;
+        white-space: nowrap;
     }
-    .ll-logo .ll-kakao {
-        font-size: 0.60rem;
-        font-weight: 400;
-        color: rgba(255,229,0,0.55);
-        letter-spacing: 0.2px;
+    .ll-logo-header {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 7px;
+        padding: 6px 2px;
+    }
+    .ll-logo-header .ll-brand {
+        font-size: 1.05rem;
+        font-weight: 300;
+        color: rgba(255,255,255,0.90);
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+    }
+    .ll-logo-header .ll-brand b { font-weight: 500; }
+    .ll-logo-header .ll-sub {
+        font-size: 0.65rem;
+        color: rgba(255,255,255,0.45);
+        font-weight: 300;
+        white-space: nowrap;
     }
 </style>
 """,
@@ -520,9 +535,9 @@ with st.sidebar:
             <span class='demo-badge'>DEMO</span>
         </div>
         <div style='margin-top:1rem;'>
-            <div class='ll-logo'>
-                <span class='ll-wordmark'>Linkage <b>Lab</b></span>
-                <span class='ll-kakao'>a kakao company</span>
+            <div class='ll-logo-sidebar'>
+                <span class='ll-brand'>Linkage <b>Lab</b></span>
+                <span class='ll-sub'>a kakao company</span>
             </div>
         </div>
     </div>
@@ -590,9 +605,9 @@ st.markdown(
             <p>Barrier-Free Voice Persona · Multimodal Pipeline PoC · Kakao AI CIC</p>
         </div>
         <div style='display:flex; align-items:center; padding-top:0.3rem;'>
-            <div class='ll-logo'>
-                <span class='ll-wordmark' style='font-size:1.05rem;'>Linkage <b>Lab</b></span>
-                <span class='ll-kakao' style='font-size:0.63rem;'>a kakao company</span>
+            <div class='ll-logo-header'>
+                <span class='ll-brand'>Linkage <b>Lab</b></span>
+                <span class='ll-sub'>a kakao company</span>
             </div>
         </div>
     </div>
