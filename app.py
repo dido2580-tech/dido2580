@@ -152,6 +152,73 @@ st.markdown(
         font-size: 0.88rem;
     }
     .pipeline-step .check { color: #22C55E; font-weight: 700; }
+
+    /* ── LikageLab 로고 ── */
+    .likagelab-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #0F0F1A 0%, #1E1B4B 100%);
+        border-radius: 8px;
+        padding: 5px 11px;
+        text-decoration: none;
+    }
+    .likagelab-logo .ll-icon {
+        width: 18px;
+        height: 18px;
+        background: linear-gradient(135deg, #818CF8 0%, #C084FC 100%);
+        border-radius: 4px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 900;
+        color: white;
+        letter-spacing: -1px;
+    }
+    .likagelab-logo .ll-text {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        background: linear-gradient(90deg, #818CF8, #C084FC);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .likagelab-logo-lg {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #0F0F1A 0%, #1E1B4B 100%);
+        border-radius: 10px;
+        padding: 7px 16px;
+    }
+    .likagelab-logo-lg .ll-icon-lg {
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(135deg, #818CF8 0%, #C084FC 100%);
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 900;
+        color: white;
+        letter-spacing: -1px;
+    }
+    .likagelab-logo-lg .ll-text-lg {
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        background: linear-gradient(90deg, #818CF8, #C084FC);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .likagelab-logo-lg .ll-sub {
+        font-size: 0.65rem;
+        color: #6B7280;
+        margin-left: 2px;
+        -webkit-text-fill-color: #9CA3AF;
+    }
 </style>
 """,
     unsafe_allow_html=True,
@@ -492,6 +559,12 @@ with st.sidebar:
             &nbsp;
             <span class='demo-badge'>DEMO</span>
         </div>
+        <div style='margin-top:0.8rem;'>
+            <span class='likagelab-logo'>
+                <span class='ll-icon'>L²</span>
+                <span class='ll-text'>LikageLab</span>
+            </span>
+        </div>
     </div>
     """,
         unsafe_allow_html=True,
@@ -551,8 +624,21 @@ with st.sidebar:
 st.markdown(
     """
 <div class='main-header'>
-    <h1>🎙️ 배리어프리 보이스 페르소나 시뮬레이터</h1>
-    <p>Barrier-Free Voice Persona · Multimodal Pipeline PoC · Kakao AI CIC</p>
+    <div style='display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;'>
+        <div>
+            <h1>🎙️ 배리어프리 보이스 페르소나 시뮬레이터</h1>
+            <p>Barrier-Free Voice Persona · Multimodal Pipeline PoC · Kakao AI CIC</p>
+        </div>
+        <div style='display:flex; align-items:center; padding-top:0.3rem;'>
+            <span class='likagelab-logo-lg'>
+                <span class='ll-icon-lg'>L²</span>
+                <div style='display:flex; flex-direction:column; line-height:1.2;'>
+                    <span class='ll-text-lg'>LikageLab</span>
+                    <span class='ll-sub'>AI Innovation Lab</span>
+                </div>
+            </span>
+        </div>
+    </div>
 </div>
 """,
     unsafe_allow_html=True,
