@@ -153,72 +153,41 @@ st.markdown(
     }
     .pipeline-step .check { color: #22C55E; font-weight: 700; }
 
-    /* ── LikageLab 로고 ── */
-    .likagelab-logo {
+    /* ── Linkage Lab 로고 ── */
+    .ll-logo-wrap {
         display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: linear-gradient(135deg, #0F0F1A 0%, #1E1B4B 100%);
-        border-radius: 8px;
-        padding: 5px 11px;
-        text-decoration: none;
+        align-items: baseline;
+        gap: 7px;
+        padding: 6px 2px;
     }
-    .likagelab-logo .ll-icon {
-        width: 18px;
-        height: 18px;
-        background: linear-gradient(135deg, #818CF8 0%, #C084FC 100%);
-        border-radius: 4px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 11px;
-        font-weight: 900;
-        color: white;
-        letter-spacing: -1px;
+    .ll-logo-wrap .ll-brand {
+        font-size: 1.05rem;
+        font-weight: 300;
+        color: #3A3A3A;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
     }
-    .likagelab-logo .ll-text {
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.4px;
-        background: linear-gradient(90deg, #818CF8, #C084FC);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    .ll-logo-wrap .ll-brand b {
+        font-weight: 400;
     }
-    .likagelab-logo-lg {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: linear-gradient(135deg, #0F0F1A 0%, #1E1B4B 100%);
-        border-radius: 10px;
-        padding: 7px 16px;
+    .ll-logo-wrap .ll-sub {
+        font-size: 0.68rem;
+        color: #AAAAAA;
+        font-weight: 300;
+        letter-spacing: 0.2px;
+        white-space: nowrap;
     }
-    .likagelab-logo-lg .ll-icon-lg {
-        width: 24px;
-        height: 24px;
-        background: linear-gradient(135deg, #818CF8 0%, #C084FC 100%);
-        border-radius: 6px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 13px;
-        font-weight: 900;
-        color: white;
-        letter-spacing: -1px;
+    .ll-logo-wrap .ll-sub .kakao-word {
+        color: #888;
+        font-style: italic;
     }
-    .likagelab-logo-lg .ll-text-lg {
-        font-size: 0.9rem;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        background: linear-gradient(90deg, #818CF8, #C084FC);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .likagelab-logo-lg .ll-sub {
-        font-size: 0.65rem;
-        color: #6B7280;
-        margin-left: 2px;
-        -webkit-text-fill-color: #9CA3AF;
-    }
+    /* 사이드바용 — 작은 버전 */
+    .ll-logo-sm .ll-brand { font-size: 0.85rem; }
+    .ll-logo-sm .ll-sub   { font-size: 0.60rem; }
+    /* 헤더 다크 배경용 — 색상 반전 */
+    .ll-logo-dark .ll-brand { color: rgba(255,255,255,0.90); }
+    .ll-logo-dark .ll-sub   { color: rgba(255,255,255,0.50); }
+    .ll-logo-dark .ll-sub .kakao-word { color: rgba(255,255,255,0.55); }
 </style>
 """,
     unsafe_allow_html=True,
@@ -559,10 +528,10 @@ with st.sidebar:
             &nbsp;
             <span class='demo-badge'>DEMO</span>
         </div>
-        <div style='margin-top:0.8rem;'>
-            <span class='likagelab-logo'>
-                <span class='ll-icon'>L²</span>
-                <span class='ll-text'>LikageLab</span>
+        <div style='margin-top:0.9rem;'>
+            <span class='ll-logo-wrap ll-logo-sm'>
+                <span class='ll-brand'>Linkage <b>Lab</b></span>
+                <span class='ll-sub'>a <span class='kakao-word'>kakao</span> company</span>
             </span>
         </div>
     </div>
@@ -629,13 +598,10 @@ st.markdown(
             <h1>🎙️ 배리어프리 보이스 페르소나 시뮬레이터</h1>
             <p>Barrier-Free Voice Persona · Multimodal Pipeline PoC · Kakao AI CIC</p>
         </div>
-        <div style='display:flex; align-items:center; padding-top:0.3rem;'>
-            <span class='likagelab-logo-lg'>
-                <span class='ll-icon-lg'>L²</span>
-                <div style='display:flex; flex-direction:column; line-height:1.2;'>
-                    <span class='ll-text-lg'>LikageLab</span>
-                    <span class='ll-sub'>AI Innovation Lab</span>
-                </div>
+        <div style='display:flex; align-items:center; padding-top:0.4rem;'>
+            <span class='ll-logo-wrap ll-logo-dark'>
+                <span class='ll-brand' style='font-size:1.15rem;'>Linkage <b>Lab</b></span>
+                <span class='ll-sub' style='font-size:0.72rem;'>a <span class='kakao-word'>kakao</span> company</span>
             </span>
         </div>
     </div>
