@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Linkage Lab Teaser</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;700&family=Inter:wght@200;300;400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #080810;
+    font-family: 'Inter', 'Noto Sans KR', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── 배경 그라디언트 광원 ── */
+  .bg-glow-1 {
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(129,140,248,0.12) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    pointer-events: none;
+  }
+  .bg-glow-2 {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(192,132,252,0.10) 0%, transparent 70%);
+    bottom: -80px; right: -80px;
+    pointer-events: none;
+  }
+  .bg-glow-3 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,229,0,0.05) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  /* ── 노이즈 텍스처 오버레이 ── */
+  .noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* ── 메인 컨테이너 ── */
+  .container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  /* ── 상단 태그 ── */
+  .top-tag {
+    position: absolute;
+    top: 6.5vh;
+    left: 6.5vw;
+    right: 6.5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.50);
+    letter-spacing: 0.5px;
+  }
+  .tag-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #818CF8;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* ── 로고 (우상단) ── */
+  .logo-top {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #1A1A1A;
+    border: 1px solid rgba(255,229,0,0.20);
+    padding: 7px 16px;
+    border-radius: 8px;
+  }
+  .logo-brand {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: #FFE500;
+    letter-spacing: 0.3px;
+  }
+  .logo-brand b { font-weight: 700; color: #FFE500; }
+  .logo-sub {
+    font-size: 11px;
+    color: rgba(255,229,0,0.50);
+    font-weight: 300;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── 웨이브폼 SVG ── */
+  .waveform-wrap {
+    margin-bottom: 48px;
+    position: relative;
+    width: 60%;
+    max-width: 640px;
+    min-width: 320px;
+  }
+  .waveform-wrap svg {
+    display: block;
+  }
+  .wave-glow {
+    position: absolute;
+    inset: -30px -60px;
+    background: radial-gradient(ellipse, rgba(129,140,248,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── 메인 카피 ── */
+  .main-copy {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .copy-ko {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: clamp(36px, 4.8vw, 56px);
+    font-weight: 100;
+    color: rgba(255,255,255,0.93);
+    line-height: 1.35;
+    letter-spacing: -1px;
+    display: block;
+  }
+  .copy-ko b {
+    font-weight: 700;
+    background: linear-gradient(90deg, #818CF8, #C084FC, #818CF8);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 0% }
+    100% { background-position: 200% }
+  }
+  .copy-en {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.30);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 14px;
+    display: block;
+  }
+
+  /* ── 서브 카피 ── */
+  .sub-copy {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: clamp(14px, 1.8vw, 22px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.42);
+    text-align: center;
+    letter-spacing: 0.5px;
+    margin-bottom: 64px;
+    line-height: 1.7;
+  }
+
+  /* ── 하단 영역 ── */
+  .bottom-bar {
+    position: absolute;
+    bottom: 6vh;
+    left: 6.5vw;
+    right: 6.5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .coming-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cs-line {
+    width: 32px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+  }
+  .cs-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .hashtags {
+    display: flex;
+    gap: 10px;
+  }
+  .htag {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.22);
+    letter-spacing: 0.3px;
+  }
+
+  /* ── 중앙 분리선 ── */
+  .divider {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);
+    margin: 0 auto 40px auto;
+  }
+</style>
+</head>
+<body>
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
+<div class="bg-glow-3"></div>
+<div class="noise"></div>
+
+<div class="container">
+
+  <!-- 상단 태그 & 로고 -->
+  <div class="top-tag">
+    <div class="tag-pill">
+      <div class="tag-dot"></div>
+      AI · Voice · Accessibility
+    </div>
+    <div class="logo-wrap">
+      <span class="logo-brand">Linkage <b>Lab</b></span>
+      <span class="logo-sub">a kakao company</span>
+    </div>
+  </div>
+
+  <!-- 웨이브폼 -->
+  <div class="waveform-wrap">
+    <div class="wave-glow"></div>
+    <svg width="100%" height="90" viewBox="0 0 640 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="wg" x1="0" y1="0" x2="640" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="#818CF8" stop-opacity="0.0"/>
+          <stop offset="20%"  stop-color="#818CF8" stop-opacity="0.9"/>
+          <stop offset="50%"  stop-color="#C084FC" stop-opacity="1.0"/>
+          <stop offset="80%"  stop-color="#818CF8" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#818CF8" stop-opacity="0.0"/>
+        </linearGradient>
+      </defs>
+      <!-- 웨이브 바 (성우 목소리 파형 시뮬레이션) -->
+      <rect x="0"   y="42" width="3" height="6"  rx="2" fill="url(#wg)" opacity="0.3"/>
+      <rect x="8"   y="38" width="3" height="14" rx="2" fill="url(#wg)" opacity="0.5"/>
+      <rect x="16"  y="32" width="3" height="26" rx="2" fill="url(#wg)" opacity="0.6"/>
+      <rect x="24"  y="26" width="3" height="38" rx="2" fill="url(#wg)" opacity="0.7"/>
+      <rect x="32"  y="34" width="3" height="22" rx="2" fill="url(#wg)" opacity="0.6"/>
+      <rect x="40"  y="30" width="3" height="30" rx="2" fill="url(#wg)" opacity="0.8"/>
+      <rect x="48"  y="20" width="3" height="50" rx="2" fill="url(#wg)" opacity="0.9"/>
+      <rect x="56"  y="28" width="3" height="34" rx="2" fill="url(#wg)"/>
+      <rect x="64"  y="14" width="3" height="62" rx="2" fill="url(#wg)"/>
+      <rect x="72"  y="22" width="3" height="46" rx="2" fill="url(#wg)"/>
+      <rect x="80"  y="8"  width="3" height="74" rx="2" fill="url(#wg)"/>
+      <rect x="88"  y="18" width="3" height="54" rx="2" fill="url(#wg)"/>
+      <rect x="96"  y="24" width="3" height="42" rx="2" fill="url(#wg)"/>
+      <rect x="104" y="12" width="3" height="66" rx="2" fill="url(#wg)"/>
+      <rect x="112" y="20" width="3" height="50" rx="2" fill="url(#wg)"/>
+      <rect x="120" y="6"  width="3" height="78" rx="2" fill="url(#wg)"/>
+      <rect x="128" y="16" width="3" height="58" rx="2" fill="url(#wg)"/>
+      <rect x="136" y="10" width="3" height="70" rx="2" fill="url(#wg)"/>
+      <rect x="144" y="4"  width="3" height="82" rx="2" fill="url(#wg)"/>
+      <rect x="152" y="12" width="3" height="66" rx="2" fill="url(#wg)"/>
+      <rect x="160" y="18" width="3" height="54" rx="2" fill="url(#wg)"/>
+      <rect x="168" y="6"  width="3" height="78" rx="2" fill="url(#wg)"/>
+      <rect x="176" y="14" width="3" height="62" rx="2" fill="url(#wg)"/>
+      <rect x="184" y="2"  width="3" height="86" rx="2" fill="url(#wg)"/>
+      <rect x="192" y="10" width="3" height="70" rx="2" fill="url(#wg)"/>
+      <rect x="200" y="16" width="3" height="58" rx="2" fill="url(#wg)"/>
+      <rect x="208" y="4"  width="3" height="82" rx="2" fill="url(#wg)"/>
+      <rect x="216" y="12" width="3" height="66" rx="2" fill="url(#wg)"/>
+      <rect x="224" y="8"  width="3" height="74" rx="2" fill="url(#wg)"/>
+      <rect x="232" y="2"  width="3" height="86" rx="2" fill="url(#wg)"/>
+      <rect x="240" y="8"  width="3" height="74" rx="2" fill="url(#wg)"/>
+      <rect x="248" y="14" width="3" height="62" rx="2" fill="url(#wg)"/>
+      <!-- 중앙 피크 -->
+      <rect x="256" y="0"  width="4" height="90" rx="2" fill="url(#wg)"/>
+      <rect x="265" y="2"  width="4" height="86" rx="2" fill="url(#wg)"/>
+      <rect x="274" y="0"  width="4" height="90" rx="2" fill="url(#wg)"/>
+      <rect x="283" y="4"  width="4" height="82" rx="2" fill="url(#wg)"/>
+      <rect x="292" y="0"  width="4" height="90" rx="2" fill="url(#wg)"/>
+      <rect x="301" y="2"  width="4" height="86" rx="2" fill="url(#wg)"/>
+      <rect x="310" y="0"  width="4" height="90" rx="2" fill="url(#wg)"/>
+      <rect x="319" y="4"  width="4" height="82" rx="2" fill="url(#wg)"/>
+      <rect x="328" y="0"  width="4" height="90" rx="2" fill="url(#wg)"/>
+      <rect x="337" y="2"  width="4" height="86" rx="2" fill="url(#wg)"/>
+      <!-- 오른쪽 감쇠 -->
+      <rect x="348" y="8"  width="3" height="74" rx="2" fill="url(#wg)"/>
+      <rect x="356" y="14" width="3" height="62" rx="2" fill="url(#wg)"/>
+      <rect x="364" y="2"  width="3" height="86" rx="2" fill="url(#wg)"/>
+      <rect x="372" y="8"  width="3" height="74" rx="2" fill="url(#wg)"/>
+      <rect x="380" y="12" width="3" height="66" rx="2" fill="url(#wg)"/>
+      <rect x="388" y="4"  width="3" height="82" rx="2" fill="url(#wg)"/>
+      <rect x="396" y="10" width="3" height="70" rx="2" fill="url(#wg)"/>
+      <rect x="404" y="16" width="3" height="58" rx="2" fill="url(#wg)"/>
+      <rect x="412" y="6"  width="3" height="78" rx="2" fill="url(#wg)"/>
+      <rect x="420" y="14" width="3" height="62" rx="2" fill="url(#wg)"/>
+      <rect x="428" y="10" width="3" height="70" rx="2" fill="url(#wg)"/>
+      <rect x="436" y="4"  width="3" height="82" rx="2" fill="url(#wg)"/>
+      <rect x="444" y="12" width="3" height="66" rx="2" fill="url(#wg)"/>
+      <rect x="452" y="18" width="3" height="54" rx="2" fill="url(#wg)"/>
+      <rect x="460" y="6"  width="3" height="78" rx="2" fill="url(#wg)"/>
+      <rect x="468" y="16" width="3" height="58" rx="2" fill="url(#wg)"/>
+      <rect x="476" y="20" width="3" height="50" rx="2" fill="url(#wg)"/>
+      <rect x="484" y="8"  width="3" height="74" rx="2" fill="url(#wg)" opacity="0.9"/>
+      <rect x="492" y="14" width="3" height="62" rx="2" fill="url(#wg)" opacity="0.9"/>
+      <rect x="500" y="20" width="3" height="50" rx="2" fill="url(#wg)" opacity="0.8"/>
+      <rect x="508" y="12" width="3" height="66" rx="2" fill="url(#wg)" opacity="0.8"/>
+      <rect x="516" y="22" width="3" height="46" rx="2" fill="url(#wg)" opacity="0.7"/>
+      <rect x="524" y="18" width="3" height="54" rx="2" fill="url(#wg)" opacity="0.7"/>
+      <rect x="532" y="24" width="3" height="42" rx="2" fill="url(#wg)" opacity="0.6"/>
+      <rect x="540" y="28" width="3" height="34" rx="2" fill="url(#wg)" opacity="0.6"/>
+      <rect x="548" y="20" width="3" height="50" rx="2" fill="url(#wg)" opacity="0.5"/>
+      <rect x="556" y="30" width="3" height="30" rx="2" fill="url(#wg)" opacity="0.5"/>
+      <rect x="564" y="34" width="3" height="22" rx="2" fill="url(#wg)" opacity="0.4"/>
+      <rect x="572" y="26" width="3" height="38" rx="2" fill="url(#wg)" opacity="0.4"/>
+      <rect x="580" y="32" width="3" height="26" rx="2" fill="url(#wg)" opacity="0.3"/>
+      <rect x="588" y="38" width="3" height="14" rx="2" fill="url(#wg)" opacity="0.3"/>
+      <rect x="596" y="42" width="3" height="6"  rx="2" fill="url(#wg)" opacity="0.2"/>
+      <rect x="604" y="40" width="3" height="10" rx="2" fill="url(#wg)" opacity="0.15"/>
+      <rect x="612" y="43" width="3" height="4"  rx="2" fill="url(#wg)" opacity="0.1"/>
+    </svg>
+  </div>
+
+  <!-- 메인 카피 -->
+  <div class="main-copy">
+    <span class="copy-ko">모든 목소리는<br><b>닿을 수 있어야 합니다</b></span>
+    <span class="copy-en">Barrier · Free · Voice · Persona</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 서브 카피 -->
+  <div class="sub-copy">
+    AI가 감정을 읽고, 목소리가 마음에 닿는<br>새로운 연결이 시작됩니다
+  </div>
+
+  <!-- 하단 바 -->
+  <div class="bottom-bar">
+    <div class="coming-soon">
+      <div class="cs-line"></div>
+      <span class="cs-text">Coming Soon</span>
+    </div>
+    <div class="hashtags">
+      <span class="htag">#LinkageLab</span>
+      <span class="htag">#배리어프리</span>
+      <span class="htag">#AI보이스</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -153,73 +153,31 @@ st.markdown(
     }
     .pipeline-step .check { color: #22C55E; font-weight: 700; }
 
-    /* ── Linkage Lab 교차 애니메이션 로고 ── */
-    @keyframes ll-show-light {
-        0%,  42% { opacity: 1; }
-        50%, 92% { opacity: 0; }
-        100%     { opacity: 1; }
-    }
-    @keyframes ll-show-dark {
-        0%,  42% { opacity: 0; }
-        50%, 92% { opacity: 1; }
-        100%     { opacity: 0; }
-    }
-
-    .ll-switcher {
-        position: relative;
-        display: inline-block;
-    }
-    /* 라이트 버전 (흰 배경, 어두운 글씨) */
-    .ll-v-light {
+    /* ── Linkage Lab 고정 로고 ── */
+    .ll-logo {
         display: inline-flex;
-        align-items: baseline;
-        gap: 7px;
-        background: #FFFFFF;
-        padding: 7px 14px;
+        align-items: center;
+        gap: 8px;
+        background: #1A1A1A;
+        padding: 7px 16px;
         border-radius: 8px;
-        animation: ll-show-light 5s ease-in-out infinite;
-    }
-    /* 다크 버전 (검정 배경, 흰 글씨) */
-    .ll-v-dark {
-        position: absolute;
-        top: 0; left: 0;
-        display: inline-flex;
-        align-items: baseline;
-        gap: 7px;
-        background: #2B2B2B;
-        padding: 7px 14px;
-        border-radius: 8px;
-        animation: ll-show-dark 5s ease-in-out infinite;
         white-space: nowrap;
     }
-    /* 공통 텍스트 */
-    .ll-brand-light {
+    .ll-logo .ll-wordmark {
         font-size: 0.95rem;
         font-weight: 300;
-        color: #3A3A3A;
-        letter-spacing: 0.3px;
-        white-space: nowrap;
+        color: #FFE500;
+        letter-spacing: 0.4px;
     }
-    .ll-brand-light b { font-weight: 500; }
-    .ll-sub-light {
-        font-size: 0.62rem;
-        color: #AAAAAA;
-        font-weight: 300;
-        white-space: nowrap;
+    .ll-logo .ll-wordmark b {
+        font-weight: 700;
+        color: #FFE500;
     }
-    .ll-brand-dark {
-        font-size: 0.95rem;
-        font-weight: 300;
-        color: rgba(255,255,255,0.92);
-        letter-spacing: 0.3px;
-        white-space: nowrap;
-    }
-    .ll-brand-dark b { font-weight: 500; }
-    .ll-sub-dark {
-        font-size: 0.62rem;
-        color: rgba(255,255,255,0.45);
-        font-weight: 300;
-        white-space: nowrap;
+    .ll-logo .ll-kakao {
+        font-size: 0.60rem;
+        font-weight: 400;
+        color: rgba(255,229,0,0.55);
+        letter-spacing: 0.2px;
     }
 </style>
 """,
@@ -561,16 +519,10 @@ with st.sidebar:
             &nbsp;
             <span class='demo-badge'>DEMO</span>
         </div>
-        <div style='margin-top:1rem; height:34px;'>
-            <div class='ll-switcher'>
-                <div class='ll-v-light'>
-                    <span class='ll-brand-light'>Linkage <b>Lab</b></span>
-                    <span class='ll-sub-light'>a kakao company</span>
-                </div>
-                <div class='ll-v-dark'>
-                    <span class='ll-brand-dark'>Linkage <b>Lab</b></span>
-                    <span class='ll-sub-dark'>a kakao company</span>
-                </div>
+        <div style='margin-top:1rem;'>
+            <div class='ll-logo'>
+                <span class='ll-wordmark'>Linkage <b>Lab</b></span>
+                <span class='ll-kakao'>a kakao company</span>
             </div>
         </div>
     </div>
@@ -637,16 +589,10 @@ st.markdown(
             <h1>🎙️ 배리어프리 보이스 페르소나 시뮬레이터</h1>
             <p>Barrier-Free Voice Persona · Multimodal Pipeline PoC · Kakao AI CIC</p>
         </div>
-        <div style='display:flex; align-items:center; padding-top:0.3rem; height:38px;'>
-            <div class='ll-switcher'>
-                <div class='ll-v-light'>
-                    <span class='ll-brand-light' style='font-size:1.05rem;'>Linkage <b>Lab</b></span>
-                    <span class='ll-sub-light' style='font-size:0.65rem;'>a kakao company</span>
-                </div>
-                <div class='ll-v-dark'>
-                    <span class='ll-brand-dark' style='font-size:1.05rem;'>Linkage <b>Lab</b></span>
-                    <span class='ll-sub-dark' style='font-size:0.65rem;'>a kakao company</span>
-                </div>
+        <div style='display:flex; align-items:center; padding-top:0.3rem;'>
+            <div class='ll-logo'>
+                <span class='ll-wordmark' style='font-size:1.05rem;'>Linkage <b>Lab</b></span>
+                <span class='ll-kakao' style='font-size:0.63rem;'>a kakao company</span>
             </div>
         </div>
     </div>
