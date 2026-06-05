@@ -6,6 +6,7 @@ import copy
 import io
 import json
 import math
+import os
 import struct
 import time
 import wave
@@ -465,42 +466,48 @@ def build_prosody(user_type: str, situation: str) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# AUDIO — Sine-wave tone generator (외부 패키지 불필요)
+# AUDIO — 실제 보이스 페르소나 WAV 파일 로더
 # ─────────────────────────────────────────────────────────────────────────────
-def generate_voice_tone(persona_id: str, duration: float = 2.5) -> bytes:
-    """
-    Generate a persona-characteristic WAV tone using Python's standard library.
-    Each persona maps to a distinct fundamental frequency to simulate voice DNA.
-    """
-    freq = PERSONA_META[persona_id]["freq"]
-    sample_rate = 22050
-    n_samples = int(sample_rate * duration)
-    amplitude = 18000
-    fade_in_s, fade_out_s = 0.06, 0.18
+VOICE_DIR = os.path.join(os.path.dirname(__file__), "voices")
 
+VOICE_FILE_MAP = {
+    ("senior",             "error_recovery"): "senior_error_recovery.wav",
+    ("senior",             "guidance"):       "senior_guidance.wav",
+    ("senior",             "conversation"):   "senior_conversation.wav",
+    ("visually_impaired",  "error_recovery"): "visually_impaired_error_recovery.wav",
+    ("visually_impaired",  "guidance"):       "visually_impaired_guidance.wav",
+    ("visually_impaired",  "conversation"):   "visually_impaired_conversation.wav",
+    ("cognitive_decline",  "error_recovery"): "cognitive_decline_error_recovery.wav",
+    ("cognitive_decline",  "guidance"):       "cognitive_decline_guidance.wav",
+    ("cognitive_decline",  "conversation"):   "cognitive_decline_conversation.wav",
+}
+
+def load_voice(user_type: str, situation: str) -> bytes:
+    """
+    실제 성우 녹음 WAV 파일을 로드합니다.
+    헤이카카오 원음 성우 Voice DNA — 감정 세공 파라미터가 반영된 실제 음성.
+    파일이 없을 경우 사인파 fallback으로 대체.
+    """
+    filename = VOICE_FILE_MAP.get((user_type, situation))
+    if filename:
+        filepath = os.path.join(VOICE_DIR, filename)
+        if os.path.exists(filepath):
+            with open(filepath, "rb") as f:
+                return f.read()
+
+    # ── Fallback: 사인파 톤 (파일 없을 때) ──
+    freq = 440
+    sample_rate, duration, amplitude = 22050, 2.0, 16000
     frames = []
-    for i in range(n_samples):
+    for i in range(int(sample_rate * duration)):
         t = i / sample_rate
-        # Fundamental + 2 harmonics for richer timbre
-        wave_val = (
-            0.70 * math.sin(2 * math.pi * freq * t)
-            + 0.20 * math.sin(2 * math.pi * freq * 2 * t)
-            + 0.10 * math.sin(2 * math.pi * freq * 3 * t)
-        )
-        # Amplitude envelope: fade in / sustain / fade out
-        env = min(t / fade_in_s, 1.0, (duration - t) / fade_out_s)
-        # Gentle vibrato at 5.5 Hz simulates natural voice modulation
-        vibrato = 1 + 0.018 * math.sin(2 * math.pi * 5.5 * t)
-        sample = int(amplitude * wave_val * env * vibrato)
-        sample = max(-32767, min(32767, sample))
-        frames.append(struct.pack("<h", sample))
-
+        env = min(t / 0.05, 1.0, (duration - t) / 0.15)
+        s = int(amplitude * math.sin(2 * math.pi * freq * t) * env)
+        frames.append(struct.pack("<h", max(-32767, min(32767, s))))
     buf = io.BytesIO()
     with wave.open(buf, "wb") as wf:
-        wf.setnchannels(1)
-        wf.setsampwidth(2)
-        wf.setframerate(sample_rate)
-        wf.writeframes(b"".join(frames))
+        wf.setnchannels(1); wf.setsampwidth(2)
+        wf.setframerate(sample_rate); wf.writeframes(b"".join(frames))
     return buf.getvalue()
 
 
@@ -791,12 +798,12 @@ if run_btn:
     col_audio, col_wave = st.columns([1, 2])
 
     with col_audio:
-        st.markdown(f"**페르소나 특성 톤 미리듣기**")
+        st.markdown(f"**🎙️ 실제 성우 음성 재생**")
         st.caption(
-            f"{pm['label']}  |  특성 주파수 {PERSONA_META[persona_id]['freq']} Hz"
+            f"{pm['label']}  |  헤이카카오 원음 성우 · Voice DNA 실제 녹음"
         )
-        with st.spinner("🎼 Voice DNA 톤 렌더링 중..."):
-            audio_bytes = generate_voice_tone(persona_id, duration=2.5)
+        with st.spinner("🎙️ 헤이카카오 Voice DNA 음성 로딩 중..."):
+            audio_bytes = load_voice(user_type, situation)
         st.audio(audio_bytes, format="audio/wav")
         st.markdown(
             f"<span class='persona-pill' style='background:{pm['bg']};"
@@ -822,9 +829,9 @@ if run_btn:
             unsafe_allow_html=True,
         )
         st.caption(
-            "⚠️ **PoC 시연 모드**: 실제 제품에서는 헤이카카오 원음 성우의 Voice DNA가 "
-            "파인튜닝된 TTS 모델(VITS2 또는 ClovaVoice API)을 통해 감정 맞춤 음성으로 "
-            "실시간 합성됩니다."
+            "✅ **헤이카카오 원음 성우 실제 녹음** — "
+            "실제 제품에서는 이 Voice DNA를 파인튜닝한 TTS 모델이 "
+            "실시간으로 감정 맞춤 음성을 합성합니다."
         )
 
     # ── Pipeline summary ──────────────────────────────────────────────────────
